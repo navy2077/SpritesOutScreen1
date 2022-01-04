@@ -1,0 +1,16 @@
+Commodore 64 BASIC: Sprites on the border (no machine language)
+https://www.youtube.com/watch?v=-5ASyabVrxg&ab_channel=AquiDeRossi
+
+An attempt at implementing the border hack to show sprites offscreen. 
+Line 50 makes it work: by WAITing on the raster interrupt (bit 0 of 53273). 
+Note that the interrupt status register (53273) always works, 
+even if the IRQ pin isn't unmasked/enabled at 53274; 
+you can poll it anytime. 
+It takes experimentation to find which scanline to trip it on, 
+because of the time the BASIC interpretation takes. 
+(This was done easily enough by temporarily substituting 53265 with 53280, 
+so you can see what you're doing.) 
+BASIC isn't fast enough to do anything beyond the main loop in line 50. 
+The 1/60 interrupt from the first CIA is also turned off, 
+to prevent interference.
+
